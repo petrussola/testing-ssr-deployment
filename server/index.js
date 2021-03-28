@@ -1,7 +1,7 @@
 import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
+import { ServerLocation } from "@reach/router";
 import fs from "fs";
 import App from "../src/App";
 
@@ -16,9 +16,9 @@ const app = express();
 app.use("/dist", express.static("dist"));
 app.use((req, res) => {
   const reactMarkup = (
-    <StaticRouter location={req.url}>
+    <ServerLocation url={req.url}>
       <App />
-    </StaticRouter>
+    </ServerLocation>
   );
 
   res.send(`${parts[0]}${renderToString(reactMarkup)}${parts[1]}`);
